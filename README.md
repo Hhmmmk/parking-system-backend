@@ -18,3 +18,15 @@ a parking slot the satisfies the following constraints:
   - S vehicles can park in SP, MP and LP parking spaces;
   - M vehicles can park in MP and LP parking spaces; and
   - L vehicles can park only in LP parking spaces.
+
+You are free to design the system in any pattern you wish. However, take note that the system assumes the input of the following:
+
+  - The number of entry points to the parking complex, but no less than three (3). Assume that the entry points
+      are also exit points, so no need to take into account the number of possible exit points.
+
+  - The map of the parking slot. You are welcome to introduce a design that suits your approach.
+
+  - The sizes of every corresponding parking slot. 
+
+  - Two functions to park a vehicle and unpark it. The functions must consider the attributes of the vehicle as described above.
+     
