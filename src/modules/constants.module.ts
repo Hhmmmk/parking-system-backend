@@ -1,19 +1,9 @@
-import { Slot } from './parking/slot.module';
-import { getSlotsInRange } from './parking/zone.module';
-import { SlotRange } from './types.module';
-
 export const TABLE_NAME = {
   customers: 'Customers',
   entrances: 'Entrances',
   parkingSlots: 'ParkingSlots',
   parkingZones: 'ParkingZones',
   transactions: 'ParkingTransactions',
-};
-
-export const VEHICLE_TYPES = {
-  small: 'sVehicle',
-  medium: 'mVehicle',
-  large: 'lVehicle',
 };
 
 export const SLOT_TYPES = {
@@ -54,12 +44,6 @@ export const CUSTOMER_STATUS = {
   parked: 'parked',
   tempUnparked: 'tempUnparked',
   unparked: 'unparked',
-};
-
-export const SPACE_ALLOTMENT = {
-  sVehicle: [SLOT_TYPES.small, SLOT_TYPES.medium, SLOT_TYPES.large],
-  mVehicle: [SLOT_TYPES.medium, SLOT_TYPES.large],
-  lVehicle: [SLOT_TYPES.large],
 };
 
 export const ZONING_RANGES = {
