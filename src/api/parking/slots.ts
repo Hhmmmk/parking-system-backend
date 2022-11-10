@@ -53,18 +53,13 @@ export const slotsRequest = async (
         slotStatus: string;
       };
 
-      const setSlotStatus = async (
-        slotName: string,
-        slotStatus: string
-        // customerDetails: Customer
-      ) => {
+      const setSlotStatus = async (slotName: string, slotStatus: string) => {
         const parkingSlot = await getParkingSlot(slotName);
 
         const newSlotData = {
           ...parkingSlot[0],
           slotName: putResult.slotName,
           slotStatus: slotStatus,
-          // customerDetails: customerDetails,
         };
 
         putParkingSlots(newSlotData);
