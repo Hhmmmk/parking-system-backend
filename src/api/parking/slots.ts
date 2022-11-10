@@ -1,17 +1,8 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import { queryParkingSlotsTable } from '../../lib/database/query';
-import {
-  SLOT_STATUS,
-  SLOT_TYPES,
-  TABLE_NAME,
-  TOTALS,
-} from '../../modules/constants.module';
-import { Customer } from '../../modules/customer/customer.module';
+import { SLOT_TYPES, TOTALS } from '../../modules/constants.module';
 import {
   deleteSlot,
-  generateParkingSlots,
   getParkingSlot,
-  getParkingSlots,
   largeSlots,
   mediumSlots,
   putParkingSlots,
@@ -20,8 +11,6 @@ import {
 } from '../../modules/parking/slot.module';
 import {
   getJSONDataFromRequestStream,
-  getQueryParams,
-  getPathParams,
   getId,
 } from '../../utils/generateParams.utils';
 
@@ -89,7 +78,7 @@ export const slotsRequest = async (
         case '':
           const allSlots: Slot[] = [];
 
-          const size = ['small', 'medium', 'large'];
+          const size = Object.keys(SLOT_TYPES);
 
           for (let i = 0; i < size.length; i++) {
             for (let j = 0; j < TOTALS[size[i] as string]; j++) {
@@ -99,22 +88,6 @@ export const slotsRequest = async (
 
               allSlots.push(parkingSlot[0]);
             }
-          }
-
-          for (let i = 0; i < TOTALS.medium; i++) {
-            const parkingSlot = (await getParkingSlot(
-              `${SLOT_TYPES.medium}_${i}`
-            )) as Slot[];
-
-            allSlots.push(parkingSlot[0]);
-          }
-
-          for (let i = 0; i < TOTALS.large; i++) {
-            const parkingSlot = (await getParkingSlot(
-              `${SLOT_TYPES.large}_${i}`
-            )) as Slot[];
-
-            allSlots.push(parkingSlot[0]);
           }
 
           console.log('ALL SLOTS: ', allSlots);

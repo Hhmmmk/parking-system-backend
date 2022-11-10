@@ -187,6 +187,8 @@ export const deleteSlot = async (slotName: string) => {
   }
 };
 
+//--> HELPER FUNCTIONS <--//
+
 export const getAdjacentZones = (newCustomer: Customer, zones: Zone[]) => {
   const adjacentIndex: number[] = [];
   zones.forEach((zone, i) => {
@@ -209,33 +211,6 @@ export const getAdjacentZones = (newCustomer: Customer, zones: Zone[]) => {
   });
 
   return adjacentZones;
-};
-
-//outputing initial value instead of actual generated value
-export const getAvailableSlots = async (slots: Slot[]) => {
-  const parkingSlots: Slot[] = [];
-
-  slots.forEach(async (slot, i) => {
-    const parkingSlot = (await queryParkingSlotsTable(
-      TABLE_NAME.parkingSlots,
-      slot.slotName
-    )) as Slot[];
-
-    parkingSlots.push(parkingSlot[0]);
-
-    if (i === slots.length - 1) {
-      const availableSlots = parkingSlots.filter((slot) => {
-        return slot.slotStatus === SLOT_STATUS.available;
-      });
-
-      return availableSlots;
-    }
-
-    return parkingSlots;
-  });
-
-  console.log('availableSlots: ', parkingSlots);
-  return parkingSlots;
 };
 
 export const getSlotAssignment = async (
@@ -263,9 +238,6 @@ export const getSlotAssignment = async (
         } else {
           slotAssignment.push(availableSmallSlots[0]);
         }
-
-        //set slotStatus to occupied
-        //update slot customerDetails
       } else {
         const availableSlots = priorityZone.mediumSlots.filter((slot) => {
           return slot.slotStatus === SLOT_STATUS.available;
@@ -280,8 +252,6 @@ export const getSlotAssignment = async (
           } else {
             slotAssignment.push(availableSlots[0]);
           }
-          //set slotStatus to occupied
-          //update slot customerDetails
         } else {
           const availableSlots = priorityZone.largeSlots.filter((slot) => {
             return slot.slotStatus === SLOT_STATUS.available;
@@ -296,8 +266,6 @@ export const getSlotAssignment = async (
             } else {
               slotAssignment.push(availableSlots[0]);
             }
-            //set slotStatus to occupied
-            //update slot customerDetails
           }
         }
       }
@@ -320,9 +288,6 @@ export const getSlotAssignment = async (
         } else {
           slotAssignment.push(availableMediumSlots[0]);
         }
-
-        //set slotStatus to occupied
-        //update slot customerDetails
       } else {
         const availableSlots = priorityZone.largeSlots.filter((slot) => {
           return slot.slotStatus === SLOT_STATUS.available;
@@ -337,8 +302,6 @@ export const getSlotAssignment = async (
           } else {
             slotAssignment.push(availableSlots[0]);
           }
-          //set slotStatus to occupied
-          //update slot customerDetails
         }
       }
 

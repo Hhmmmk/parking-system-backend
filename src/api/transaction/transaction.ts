@@ -1,8 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import {
   getJSONDataFromRequestStream,
-  getQueryParams,
-  getPathParams,
   getId,
 } from '../../utils/generateParams.utils';
 

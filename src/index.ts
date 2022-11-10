@@ -1,11 +1,6 @@
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 
-import {
-  getJSONDataFromRequestStream,
-  getQueryParams,
-  getPathParams,
-  getId,
-} from './utils/generateParams.utils';
+import { getQueryParams } from './utils/generateParams.utils';
 
 import { entranceRequest } from './api/entrance/entrance';
 import { slotsRequest } from './api/parking/slots';
@@ -16,7 +11,6 @@ import { transactionRequest } from './api/transaction/transaction';
 const port = 8080;
 
 const listener = async (req: IncomingMessage, res: ServerResponse) => {
-  console.log(getQueryParams(req));
   try {
     let result: string | object = 'test';
 

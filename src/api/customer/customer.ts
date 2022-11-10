@@ -10,7 +10,6 @@ import {
   CUSTOMER_STATUS,
   SLOT_STATUS,
   TABLE_NAME,
-  VEHICLE_TYPES,
 } from '../../modules/constants.module';
 import {
   Customer,
@@ -21,11 +20,10 @@ import {
 import {
   findSlotAssignment,
   getAdjacentZones,
-  getSlotAssignment,
   putParkingSlots,
   Slot,
 } from '../../modules/parking/slot.module';
-import { Zone, Zoning } from '../../modules/parking/zone.module';
+import { Zoning } from '../../modules/parking/zone.module';
 import {
   deleteTransaction,
   putTransaction,
@@ -33,8 +31,6 @@ import {
 } from '../../modules/transaction/transaction.module';
 import {
   getJSONDataFromRequestStream,
-  getQueryParams,
-  getPathParams,
   getId,
 } from '../../utils/generateParams.utils';
 
@@ -138,9 +134,6 @@ export const customerRequest = async (
         putResult.plateNumber
       )) as Transaction[];
 
-      // console.log('Customer: ', customer);
-      // console.log('Transaction: ', transaction);
-
       if (
         customer[0].customerStatus !== putResult.customerStatus &&
         putResult.customerStatus === CUSTOMER_STATUS.tempUnparked
@@ -156,21 +149,19 @@ export const customerRequest = async (
           transactions: [...customer[0].transactions, updatedTransactionData],
         };
 
-        //compute
+        //computation
 
-        //deleteTransaction
-
-        // putTransaction(updatedTransactionData);
-        // putCustomer(updatedCustomerData);
+        putTransaction(updatedTransactionData);
+        putCustomer(updatedCustomerData);
 
         console.log('New Customer Data: ', updatedCustomerData);
         console.log('New Transaction Data: ', updatedTransactionData);
 
         const deleteTempUnparked = async () => {
-          // deleteTransaction(
-          //   updatedTransactionData.plateNumber,
-          //   updatedTransactionData.transactionId
-          // );
+          deleteTransaction(
+            updatedTransactionData.plateNumber,
+            updatedTransactionData.transactionId
+          );
 
           const assignedSlot = (await queryParkingSlotsTable(
             TABLE_NAME.parkingSlots,
@@ -183,13 +174,13 @@ export const customerRequest = async (
             customerDetails: {},
           };
 
-          // putParkingSlots(updatedSlot)
-          console.log('Updated Slot: ', updatedSlot);
+          putParkingSlots(updatedSlot);
 
+          console.log('Updated Slot: ', updatedSlot);
           console.log('Transaction Deleted');
         };
 
-        setTimeout(deleteTempUnparked, 10000); // supposedly 1 hr but set to 10 sec for testing
+        setTimeout(deleteTempUnparked, 3900000);
       }
 
       res.writeHead(201, { 'Content-Type': 'application/json' });

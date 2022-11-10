@@ -2,7 +2,7 @@ import { QueryCommand } from '@aws-sdk/lib-dynamodb';
 
 import { docClient } from './document';
 
-//==> QUERY TABLE USING ENTRY ID <==//
+//==> QUERY TABLE USING ENTRY NAME <==//
 
 export const queryEntrancesTable = async (
   tableName: string,
@@ -61,7 +61,7 @@ export const queryParkingZonesTable = async (
   }
 };
 
-//==> QUERY TABLE USING SLOT ID <==//
+//==> QUERY TABLE USING SLOT NAME <==//
 
 export const queryParkingSlotsTable = async (
   tableName: string,
@@ -82,23 +82,17 @@ export const queryParkingSlotsTable = async (
       return item;
     });
 
-    // console.log(
-    //   `RETRIEVED ${tableName.toLocaleUpperCase()} DETAILS: `,
-    //   dataList
-    // );
-
     return dataList;
   } catch (error) {
     console.log('Error', error);
   }
 };
 
-//==> QUERY TABLE USING CUSTOMER ID <==//
+//==> QUERY TABLE USING PLATE NUMBER <==//
 
 export const queryTransactionsTable = async (
   tableName: string,
   plateNumber: string
-  // transactionId: undefined | string
 ) => {
   const params = {
     TableName: tableName,
@@ -106,7 +100,6 @@ export const queryTransactionsTable = async (
     ExpressionAttributeNames: { '#i': 'plateNumber' },
     ExpressionAttributeValues: {
       ':i': plateNumber,
-      // ':t': transactionId,
     },
   };
   try {
@@ -137,7 +130,6 @@ export const queryCustomersTable = async (
     ExpressionAttributeNames: { '#i': 'plateNumber' },
     ExpressionAttributeValues: {
       ':i': plateNumber,
-      // ':p': plateNumber,
     },
   };
   try {

@@ -9,7 +9,6 @@ import { Slot } from '../../modules/parking/slot.module';
 import {
   deleteZoning,
   getSlotsInRange,
-  getSlotsInZone,
   putZones,
   Zone,
   Zoning,
@@ -67,8 +66,6 @@ export const zonesRequest = async (
 
       putZones(updatedZoning);
 
-      //update parkingSlotEntry
-
       res.writeHead(201, { 'Content-Type': 'application/json' });
       return 'Successfully updated Zoning Status';
 
@@ -88,7 +85,6 @@ export const zonesRequest = async (
   console.log('Retrieve current zoning pattern');
 
   // getSlotsInRange('small', ZONING_RANGES.zoning_0.entry_0.small);
-  console.log(getSlotsInZone(3));
 
   res.writeHead(200, { 'Content-Type': 'application/json' });
   return 'Successfully retrieved current zoning pattern';
