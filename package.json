@@ -1,0 +1,35 @@
+{
+  "name": "parking-system-backend",
+  "version": "1.0.0",
+  "description": "Parking slot allotment system",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts",
+    "table-customers": "ts-node-dev src/lib/database/tables/customers.ts",
+    "table-entrances": "ts-node-dev src/lib/database/tables/entrances.ts",
+    "table-parking-slots": "ts-node-dev src/lib/database/tables/parking-slots.ts",
+    "table-parking-zones": "ts-node-dev src/lib/database/tables/parking-zones.ts",
+    "table-transactions": "ts-node-dev src/lib/database/tables/transactions.ts"
+  },
+  "author": "Hhmmmk",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.2.0",
+    "@types/lodash": "^4.14.186",
+    "@types/node": "^18.11.7",
+    "@types/uuid": "^8.3.4",
+    "jest": "^29.2.2",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.199.0",
+    "@aws-sdk/lib-dynamodb": "^3.199.0",
+    "date-fns": "^2.29.3",
+    "lodash": "^4.17.21",
+    "uuid": "^9.0.0"
+  }
+}
